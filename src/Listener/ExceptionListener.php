@@ -14,7 +14,7 @@ class ExceptionListener
     {
         $exception = $event->getThrowable();
         $request = $event->getRequest();
-        dd($exception);
+
             // On cible uniquement les requêtes de notre API
         if (!str_starts_with($request->getPathInfo(), '/api')) {
             return;

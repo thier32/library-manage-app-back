@@ -4,6 +4,7 @@ namespace App\Controller\Impl;
 use App\Business\IBorrowBusiness;
 use App\Controller\IBorrowController;
 use App\Dto\Borrow\BorrowCreateDto;
+use App\Dto\Borrow\BorrowDto;
 use App\Dto\CriteriaDto;
 use App\Dto\Member\MemberDto;
 use App\Entity\Borrow;
@@ -27,7 +28,7 @@ class BorrowController extends AbstractController implements IBorrowController
     #[OA\Post(
         path: '/api/borrow',
         summary: 'Enregistrer un nouvel emprunt de livre',
-        description: 'Vérifie les quotas du membre et la disponibilité du livre avant de valider la transaction de prêt.',
+        description: 'Faire un prêt de livre.',
         operationId: 'createLoanTransaction'
     )]
     #[OA\Tag(name: 'Emprunts')]
@@ -100,25 +101,13 @@ class BorrowController extends AbstractController implements IBorrowController
         operationId: 'listBorrowTransaction'
     )]
     #[OA\Tag(name: 'Emprunts')]
-    #[OA\RequestBody(
-        description: 'Données requises pour lister les emprunts',
-        required: true,
-        content: new OA\JsonContent(
-            properties: [
-                new OA\Property(property: 'title', type: 'string', description: 'Titre du livre', example: 'Madame Bauvary'),
-                new OA\Property(property: 'author', type: 'string', description: 'Nom de l\'auteur', example: 'Gustave Flaubert'),
-                new OA\Property(property: 'publishedDate', type: 'string', format: 'date', description: 'Date de publication', example: '1950-07-25')
-            ],
-            type: 'object'
-        )
-    )]
     #[OA\Response(
         response: 201,
-        description: 'Book enregistré avec succès.',
+        description: 'List Emprunt affichée avec succès.',
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'success', type: 'boolean', example: true),
-                new OA\Property(property: 'book', ref: new Model(type: MemberDto::class, groups: ['book_read']))
+                new OA\Property(property: 'borrow', ref: new Model(type: BorrowDto::class, groups: ['loan_read']))
             ]
         )
     )]

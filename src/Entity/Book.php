@@ -31,9 +31,15 @@ class Book extends BaseEntity
 
 
     #[ORM\Column]
-    #[\Symfony\Component\Serializer\Annotation\Groups(['loan_read'])]
+    #[\Symfony\Component\Serializer\Annotation\Groups(['book_read'])]
     #[OA\Property(description: "Indique si le livre est candidat à l'emprunt.", example: true)]
     private bool $available = true;
+
+
+    #[ORM\Column]
+    #[\Symfony\Component\Serializer\Annotation\Groups(['book_read'])]
+    #[OA\Property(description: "Isbn du livre.", example: true)]
+    private ?string $isbn = null;
 
     public function getTitle(): ?string
     {
@@ -103,6 +109,23 @@ class Book extends BaseEntity
     final public function setAvailable(bool $available): static
     {
         $this->available = $available;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    final public function getIsbn(): ?string
+    {
+        return $this->isbn;
+    }
+
+    /**
+     * @param string|null $isbn
+     */
+    final public function setIsbn(?string $isbn): static
+    {
+        $this->isbn = $isbn;
         return $this;
     }
 }

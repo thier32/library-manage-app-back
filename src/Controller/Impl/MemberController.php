@@ -4,6 +4,7 @@ namespace App\Controller\Impl;
 use App\Business\IMemberBusiness;
 use App\Controller\IMemberController;
 use App\Dto\Member\MemberCreateDto;
+use App\Dto\Member\MemberDto;
 use App\Entity\Book;
 use App\Response\BookResponseDto;
 use App\Response\MemberResponseDto;
@@ -25,7 +26,7 @@ class MemberController extends AbstractController implements IMemberController
     #[OA\Post(
         path: '/api/member',
         summary: 'Enregistrer un nouveau membre',
-        description: 'Vérifie les quotas du membre et la disponibilité du livre avant de valider la transaction de prêt.',
+        description: 'Ajouter un nouveau membre.',
         operationId: 'createMembreTransaction'
     )]
     #[OA\Tag(name: 'Membres')]
@@ -90,25 +91,13 @@ class MemberController extends AbstractController implements IMemberController
         operationId: 'listMemberTransaction'
     )]
     #[OA\Tag(name: 'Membres')]
-    #[OA\RequestBody(
-        description: 'Données requises pour initialiser un livre',
-        required: true,
-        content: new OA\JsonContent(
-            properties: [
-                new OA\Property(property: 'title', type: 'string', description: 'Titre du livre', example: 'Madame Bauvary'),
-                new OA\Property(property: 'author', type: 'string', description: 'Nom de l\'auteur', example: 'Gustave Flaubert'),
-                new OA\Property(property: 'publishedDate', type: 'string', format: 'date', description: 'Date de publication', example: '1950-07-25')
-            ],
-            type: 'object'
-        )
-    )]
     #[OA\Response(
         response: 201,
-        description: 'Book enregistré avec succès.',
+        description: 'Liste membres affichée avec succès.',
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'success', type: 'boolean', example: true),
-                new OA\Property(property: 'book', ref: new Model(type: Book::class, groups: ['book_read']))
+                new OA\Property(property: 'member', ref: new Model(type: MemberDto::class, groups: ['book_read']))
             ]
         )
     )]

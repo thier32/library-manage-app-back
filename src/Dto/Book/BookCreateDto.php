@@ -10,7 +10,8 @@ class BookCreateDto extends BaseDto
     public function __construct(
         public ?string $title = null,
         public ?string $author = null,
-        public ?string $publishedAt = null
+        public ?string $publishedAt = null,
+        public ?string $isbn = null
     )
     {
     }

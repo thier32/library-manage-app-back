@@ -11,6 +11,7 @@ class BookDto extends BaseDto
         public ?string $title = null,
         public ?string $author = null,
         public ?bool $available = true,
+        public ?string $isbn = null,
         public ?\DateTimeInterface $publishedAt = null
     )
     {

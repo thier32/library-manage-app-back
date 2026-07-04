@@ -86,22 +86,10 @@ class BookController extends AbstractController implements IBookController
     #[OA\Get(
         path: '/api/book',
         summary: 'Lister les livres',
-        description: 'Vérifie les quotas du membre et la disponibilité du livre avant de valider la transaction de prêt.',
+        description: 'Lister les livres présents dans  le système',
         operationId: 'listBookTransaction'
     )]
     #[OA\Tag(name: 'Livres')]
-    #[OA\RequestBody(
-        description: 'Données requises pour initialiser un livre',
-        required: true,
-        content: new OA\JsonContent(
-            properties: [
-                new OA\Property(property: 'title', type: 'string', description: 'Titre du livre', example: 'Madame Bauvary'),
-                new OA\Property(property: 'author', type: 'string', description: 'Nom de l\'auteur', example: 'Gustave Flaubert'),
-                new OA\Property(property: 'publishedDate', type: 'string', format: 'date', description: 'Date de publication', example: '1950-07-25')
-            ],
-            type: 'object'
-        )
-    )]
     #[OA\Response(
         response: 201,
         description: 'Book enregistré avec succès.',
