@@ -2,6 +2,8 @@
 namespace App\Entity;
 
 use App\Repository\MemberRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use OpenApi\Attributes as OA;
@@ -47,9 +49,13 @@ class Member extends BaseEntity
     #[OA\Property(description: "Indique si le compte du membre est actif (autorisé à emprunter) ou suspendu.", example: true)]
     private bool $isActive = true;
 
+
+    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Transaction::class, orphanRemoval: true)]
+    private Collection $transactions;
     public function __construct()
     {
         $this->isActive = true;
+        $this->transactions = new ArrayCollection();
     }
 
     // =========================================================================

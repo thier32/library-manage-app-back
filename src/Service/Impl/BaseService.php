@@ -7,6 +7,7 @@ use App\Repository\BaseRepository;
 use App\Service\IBaseService;
 use App\Utils\Hydrator;
 use App\Utils\Mapper;
+use Doctrine\ORM\EntityNotFoundException;
 
 abstract class BaseService implements IBaseService
 {
@@ -51,6 +52,7 @@ abstract class BaseService implements IBaseService
         if (empty($criteria)) {
             $offset = 0;
             $pageSize = 10;
+            $criteria = [];
         }
         $entities = $this->repository->findBy($criteria,['id'=>'desc'],$pageSize,$offset);
         return $this->convertMap($entities,$dtoClassName);
@@ -63,9 +65,11 @@ abstract class BaseService implements IBaseService
         }, $entities);
     }
 
-    public function getEntity(array $criteria = []): BaseEntity
+    public function getEntity(array $criteria = []): ?BaseEntity
     {
-        return $this->repository->findOneBy($criteria);
+        $result = $this->repository->findOneBy($criteria);
+
+        return $result;
     }
 
 
