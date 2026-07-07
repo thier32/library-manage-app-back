@@ -27,9 +27,9 @@ interface IBaseService
 
     /**
      * @param array $criteria
-     * @return BaseEntity
+     * @return BaseEntity|null
      */
-    function getEntity(array $criteria = []) : BaseEntity;
+    function getEntity(array $criteria = []) : ?BaseEntity;
 
     /**
      * @param array $entities

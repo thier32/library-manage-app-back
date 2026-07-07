@@ -45,7 +45,6 @@ class BorrowRepository extends BaseRepository
      */
     public function findLoansByCriteria(?array $criteria, array $orderBy = ['loanDate' => 'DESC'], ?int $limit = null): array
     {
-        //dd($criteria);
         $qb = $this->createQueryBuilder('l')
             ->leftJoin('l.member', 'm')->addSelect('m') // Eager load to avoid N+1 issues
             ->leftJoin('l.book', 'b')->addSelect('b');

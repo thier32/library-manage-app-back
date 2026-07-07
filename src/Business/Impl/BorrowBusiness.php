@@ -3,8 +3,6 @@
 namespace App\Business\Impl;
 
 use App\Business\IBorrowBusiness;
-use App\Dto\Book\BookCreateDto;
-use App\Dto\Book\BookDto;
 use App\Dto\Borrow\BorrowCreateDto;
 use App\Dto\Borrow\BorrowDto;
 use App\Entity\Book;
